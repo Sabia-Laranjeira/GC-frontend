@@ -1,0 +1,35 @@
+.error-message-box {
+  color: rgb(174, 6, 1);
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 8px;
+  
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.816);
+  background-color: rgba(255, 255, 255, 0.877);
+  opacity: 0;
+  width: 100%;
+
+  transition: all 0.15s ease 80ms;
+
+  z-index: 1;
+}
+
+.message-product-not-found {
+  position: absolute;
+  
+  top: inherit;
+  left: 40%;
+}
+
+.message-product-already-exists {
+
+  border: 2px solid rgb(var(--primary-color));
+  background-color: white;
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
