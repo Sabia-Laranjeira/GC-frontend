@@ -1,0 +1,120 @@
+.report-form {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 80rem;
+}
+
+.report-form input {
+  border-radius: 0.5rem;
+}
+
+.report-form-section {
+  display: grid;
+
+  grid-template-columns: repeat(3,1fr);
+  gap: 0.7em 0.3em;
+  margin: 0.8rem 0.3rem;
+}
+
+.report-form-cell {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.report-form-cell-subtotal {
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border-radius: 0.5rem;
+}
+
+.report-buttons-area {
+  display: grid;
+  grid-template-columns: repeat(9,1fr);
+  
+ width: 90%;
+}
+
+#report-main-buttons{
+  display: flex;
+  justify-content: space-between;
+  column-gap: 0.8rem;
+  grid-column-start: 4;
+  grid-column-end: 7;
+}
+
+#report-update-button {
+  color: rgb(var(--terciary-color));
+  background-color: white;
+}
+
+#report-update-button:hover {
+  color: rgb(var(--lightest-terciary));
+}
+
+#report-back-button {
+  color: white;
+  background-color: rgb(var(--primary-color));
+
+  grid-column-start: 9;
+  width: 100%;
+}
+
+#report-back-button:hover {
+  background-color: rgb(var(--lightest-primary));
+}
+
+#report-back-button:active {
+  border: 1px solid rgb(var(--primary-color));
+}
+
+.report-form-button, 
+#export-report-button {
+  all: unset;
+  color: rgb(var(--secondary-color));
+  font-weight: bold;
+  background-color: rgb(var(--terciary-color));
+  text-align: center;
+
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 0.5rem;
+  border-right-color: rgb(var(--primary-color));
+  border-bottom-color: rgb(var(--primary-color)) ;
+  width: 38%;
+  box-shadow: none;
+  cursor: pointer;
+
+  transition: border 80ms;
+}
+
+.report-form-button {
+  flex: 1;
+} 
+
+.report-form-button:hover,
+#export-report-button:hover {
+  background-color: rgb(var(--lightest-terciary));
+}
+
+.report-form-button:active,
+#export-report-button:active {
+  border-width: 2px;
+  border-top-color: rgb(var(--terciary-color)); 
+  border-right-color: rgb(var(--secondary-color));
+  border-left-color: rgb(var(--terciary-color));
+  border-bottom-color: rgb(var(--secondary-color));
+}
+
+.subtotal-input-form {
+  background-color: var(--neutral-color);
+}
+
+#export-report-button {
+  padding: 0.2rem 0.4rem;
+} 
