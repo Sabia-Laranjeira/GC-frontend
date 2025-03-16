@@ -1,5 +1,5 @@
 export default async function getProductByCode(productCode) {
-  const apiUrl = `http://localhost:8000/api/get-product-by-code?code=${encodeURIComponent(productCode)}`
+  const apiUrl = `http://localhost:3000/api/get-product-by-code?code=${encodeURIComponent(productCode)}`
   try {
     const response = await fetch(apiUrl,{
       method: 'GET',

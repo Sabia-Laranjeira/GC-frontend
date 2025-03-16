@@ -1,7 +1,7 @@
 import OptionsBox from "./components/OptionsSuggetionBox.js";
 import MessageBox from "./components/MessageBox.js";
 import renderTable from "./components/renderTable.js";
-import { ReportAddButton } from "./components/ReportAddButton.js";
+
 import { ReportOverwriteButton } from "./components/ReportOverwriteButton.js";
 import { ReportBackButton } from "./components/ReportBackButton.js";
 import { ReportRegisterButton } from "./components/ReportRegisterButton.js";
@@ -9,8 +9,6 @@ import { ReportRegisterButton } from "./components/ReportRegisterButton.js";
 import searchProduct from "./services/searchProduct.js"; 
 import getReportFromDate from "./api/getReportFromDate.js";
 import getURLReportToDownload from "./api/getURLReportToDownload.js";
-
-
 
 const dateEl = document.getElementById("record-date");
 const todaysDate = new Date().toLocaleDateString("en-CA");
@@ -84,7 +82,7 @@ reportHandlerForm.addEventListener("submit",async (event) => {
   const data = JSON.stringify(Object.fromEntries(formData));
   const report = null;
 
-  const apiURL = "http://localhost:8000/api/";
+  const apiURL = "http://localhost:3000/api/";
 
   switch(event.submitter.id) {
     case "report-send-button":
@@ -117,9 +115,19 @@ reportHandlerForm.addEventListener("submit",async (event) => {
         },
         body:data
       })
+
       break
     case "report-add-button":
-      console.log("Botão adicionar!");
+      const addReportResponse = await fetch(`${apiURL}add-data-purchase-report`, {
+        method: "POST",
+        headers: {
+          "Content-Type":"application/json",
+        },
+        body:data
+      })
+
+      
+
       break
   }
 
@@ -308,7 +316,6 @@ reportViewEl.addEventListener("click", (event) => {
 
   if(!ReportAddButtonExists && !overwriteButtonExists && !reportBackButton){
     reportMainButtonsEl.innerHTML = "";
-    reportMainButtonsEl.appendChild(ReportAddButton());
     reportMainButtonsEl.appendChild(ReportOverwriteButton());
     reportButtonsAreaEl.appendChild(ReportBackButton());
   }
