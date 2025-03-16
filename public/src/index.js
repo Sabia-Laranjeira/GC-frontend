@@ -80,7 +80,7 @@ reportHandlerForm.addEventListener("submit",async (event) => {
   formData.set("markup",`${markupToFloat}`);
 
   const data = JSON.stringify(Object.fromEntries(formData));
-  const report = null;
+  let report = null;
 
   const apiURL = "http://localhost:3000/api/";
 
@@ -93,7 +93,13 @@ reportHandlerForm.addEventListener("submit",async (event) => {
         },
         body: data
       })
-      const {report,error} = await purchaseReportResponse.json()
+      let { response } = await getReportFromDate(dateEl.value);
+      report = response["Relatorio"];
+      console.log(report)
+      if(report) {
+        renderTable(reportViewEl,report)
+      }
+      const {error} = await purchaseReportResponse.json()
     
       switch(error) {
         case "[ALREADY EXISTS]":
@@ -102,10 +108,6 @@ reportHandlerForm.addEventListener("submit",async (event) => {
           errorProductAlreadyExist.show();
           return
       }
-    
-      if(!report.length) {
-        renderTable(reportViewEl,report["Relatorio"])
-      }
       break
     case "report-overwrite-button":
       const overwriteReportResponse = await fetch(`${apiURL}overwrite-purchase-report`, {
@@ -113,24 +115,17 @@ reportHandlerForm.addEventListener("submit",async (event) => {
         headers: {
           "Content-Type":"application/json",
         },
-        body:data
+        body: data
       })
 
-      break
-    case "report-add-button":
-      const addReportResponse = await fetch(`${apiURL}add-data-purchase-report`, {
-        method: "POST",
-        headers: {
-          "Content-Type":"application/json",
-        },
-        body:data
-      })
-
-      
-
+      response = await getReportFromDate(dateEl.value);
+      report = response["Relatorio"];
+      report = await getReportFromDate(dateEl.value);
+      if(report) {
+        renderTable(reportViewEl,report)
+      }
       break
   }
-
 })
 
 reportHandlerForm.addEventListener("keyup", (event) => {
