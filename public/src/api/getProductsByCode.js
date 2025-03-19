@@ -1,5 +1,7 @@
+import { apiURL } from "./url.js";
+
 export default async function getProductByCode(productCode) {
-  const apiUrl = `http://localhost:3000/api/get-product-by-code?code=${encodeURIComponent(productCode)}`
+  const apiUrl = `${apiURL}/get-product-by-code?code=${encodeURIComponent(productCode)}`
   try {
     const response = await fetch(apiUrl,{
       method: 'GET',

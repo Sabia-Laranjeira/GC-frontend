@@ -10,6 +10,8 @@ import searchProduct from "./services/searchProduct.js";
 import getReportFromDate from "./api/getReportFromDate.js";
 import getURLReportToDownload from "./api/getURLReportToDownload.js";
 
+import { apiURL } from "./api/url.js";
+
 const dateEl = document.getElementById("record-date");
 const todaysDate = new Date().toLocaleDateString("en-CA");
 dateEl.value = todaysDate;
@@ -82,11 +84,9 @@ reportHandlerForm.addEventListener("submit",async (event) => {
   const data = JSON.stringify(Object.fromEntries(formData));
   let report = null;
 
-  const apiURL = "http://localhost:3000/api/";
-
   switch(event.submitter.id) {
     case "report-send-button":
-      const purchaseReportResponse = await fetch(`${apiURL}send-purchase-report`, {
+      const purchaseReportResponse = await fetch(`${apiURL}/send-purchase-report`, {
         method:"POST",
         headers: {
           "Content-Type":"application/json"

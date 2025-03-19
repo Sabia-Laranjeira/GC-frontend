@@ -1,7 +1,8 @@
+import { apiURL } from "./url.js";
+
 export default async function getReport() {
-  const apiURL = "http://localhost:3000/api/get-report";
   try {
-    const response = await fetch(apiURL);
+    const response = await fetch(`${apiURL}/get-report`);
     return response.json()
   } catch (error) {
     console.error(error)

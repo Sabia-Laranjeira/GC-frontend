@@ -1,8 +1,8 @@
+import { apiURL } from "./url.js";
 
 export default async function getProductsRecord() {
-  const apiUrl = 'http://localhost:3000/api/products'
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(`${apiURL}/products`);
     const productsList = await response.json();
     return productsList;
   } catch (error) {
