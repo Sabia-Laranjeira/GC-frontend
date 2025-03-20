@@ -17,22 +17,10 @@ html {
 }
 
 body {
-  color: rgb(var(--primary-color));
   display: flex;
-  justify-content: center;
-  font-family: sans-serif, system-ui;
-  font-size: 1.4rem;
-
-  background-color: rgb(var(--primary-color));
-  
-}
-
-main {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   row-gap: 1.6rem;
-
+  background-color: rgb(var(--primary-color));
 }
 
 section {
@@ -62,7 +50,6 @@ input {
   border: solid 1px black;
   padding: 0.2rem 0.4rem;
   background-color: white; 
-
 } 
 
 

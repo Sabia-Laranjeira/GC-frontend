@@ -1,3 +1,22 @@
+.report-viewer-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 1.4rem;
+}
+
+.window-viewer-report {
+  overflow: auto;
+  height: 25.8rem;
+  
+  position:relative;
+}
+
+.selected-row {
+  background-color: rgb(var(--lightest-terciary));
+  font-weight: bold;
+}
+
 .reload-button {
   all: unset;
   border: 2px solid rgba(0, 0, 0, 0);
@@ -6,6 +25,8 @@
   transition: border linear 0.08s;
   cursor: pointer;
 
+  position: relative;
+  left: 1.2rem;
 }
 
 .reload-button:active {
@@ -15,24 +36,4 @@
   border-left-color: black;
   border-bottom-color: rgba(0, 0, 0, 0) ;
   box-shadow: inset 0.1rem 0.1rem 0.8rem rgba(0, 0, 0, 0.3);
-}
-
-.window-viewer-report {
-  overflow: auto;
-  width: 68.2rem;
-  height: 25.8rem;
-
-  position:relative;
-}
-
-.report-viewer-section {
-  display: flex;
-  flex-direction: column;
-  row-gap: 1.4rem;
-
-}
-
-.selected-row {
-  background-color: rgb(var(--lightest-terciary));
-  font-weight: bold;
 }

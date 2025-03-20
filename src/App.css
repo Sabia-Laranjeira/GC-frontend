@@ -1,0 +1,12 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.82rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 62rem;
+  
+  color: rgb(var(--primary-color));
+  font-family: sans-serif, system-ui;
+  font-size: 1.4rem;
+}
