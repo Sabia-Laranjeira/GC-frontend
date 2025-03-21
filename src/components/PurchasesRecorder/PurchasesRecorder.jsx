@@ -1,5 +1,4 @@
 
-
 export default function PurchasesRecorder() {
   return (<section>
      <form id="report-handler-form" name="reportForm" className="report-form">
