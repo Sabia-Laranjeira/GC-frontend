@@ -4,7 +4,7 @@ import cors from 'cors'
 const app = express();
 
 app.use(cors({
-  origin: "https://gc-frontend-mu.vercel.app"
+  origin: "https://gc-backend-wp6d.onrender.com"
 }))
 app.use(express.json());
 app.use(express.static('public'));
