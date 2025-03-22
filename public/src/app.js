@@ -1,7 +1,11 @@
 import express from 'express'
+import cors from 'cors'
 
 const app = express();
 
+app.use(cors({
+  origin: "https://gc-frontend-mu.vercel.app"
+}))
 app.use(express.json());
 app.use(express.static('public'));
 
