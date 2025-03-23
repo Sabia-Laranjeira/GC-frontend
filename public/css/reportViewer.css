@@ -19,9 +19,6 @@
 
 .window-viewer-report {
   overflow: auto;
-  width: 68.2rem;
-  height: 25.8rem;
-
   position:relative;
 }
 
@@ -29,10 +26,13 @@
   display: flex;
   flex-direction: column;
   row-gap: 1.4rem;
-
 }
 
 .selected-row {
   background-color: rgb(var(--lightest-terciary));
   font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  
 }

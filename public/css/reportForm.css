@@ -118,3 +118,14 @@
 #export-report-button {
   padding: 0.2rem 0.4rem;
 } 
+
+@media (max-width: 480px) {
+  .report-form-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .report-form-cell input {
+    height: 2.2rem;
+  }
+}

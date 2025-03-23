@@ -77,7 +77,6 @@ table {
 table th {
   color: white;
   background-color: rgba(var(--primary-color));
-  /* margin: 0rem 0.4rem; */
   padding: 0.4rem 0.2rem;
 }
 
@@ -86,7 +85,6 @@ table tr {
 }
 
 table td {
-  /* margin: 0.5rem; */
   padding: 0.4rem 0.2rem;
   border-bottom: 1px solid black;
 
