@@ -45,7 +45,7 @@
   display: flex;
   justify-content: space-between;
   column-gap: 0.8rem;
-  grid-column-start: 4;
+  grid-column-start: 3;
   grid-column-end: 7;
 }
 
@@ -126,6 +126,12 @@
   }
 
   .report-form-cell input {
+    height: 2.2rem;
+  }
+
+  #report-main-buttons{
+    grid-column-start: 1;
+    grid-column-end: 10;
     height: 2.2rem;
   }
 }

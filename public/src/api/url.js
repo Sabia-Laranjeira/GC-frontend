@@ -1,1 +1,1 @@
-export const apiURL = "https://gc-backend-wp6d.onrender.com/api";
+export const apiURL ="http://localhost:4000/api"; //"https://gc-backend-wp6d.onrender.com/api";
