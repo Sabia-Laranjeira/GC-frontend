@@ -5,3 +5,111 @@
   --terciary-color: 84, 140, 47; 
   --lightest-terciary: 143, 204, 102;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1.8rem;
+
+  margin: 2.2rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html {
+  font-size: 62.5%;
+  font-family: sans-serif,system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.8rem;
+}
+
+.table-wraper {
+  max-width: 80dvw;
+  border-radius: 0.5rem;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+
+  overflow: auto;
+}
+
+table {
+  text-align: center;
+  border-collapse: collapse;
+  padding: 0.5rem;
+
+  font-size: 1.2rem;
+}
+
+th {
+  padding: 0.2rem 0.8rem;
+}
+
+tr {
+  border-bottom: 1px solid black;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: rgba(var(--lightest-terciary),0.50);
+}
+
+button,.form-button {
+  all: unset;
+  color: rgb(var(--secondary-color));
+  background-color: rgb(var(--terciary-color));
+  padding: 0.4rem 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  border-radius: 8px;
+}
+
+button:hover, .form-button:hover {
+  background-color: rgb(var(--lightest-terciary))
+}
+
+button:active ,.form-button:active {
+  box-shadow: inset 3px 4px 10px rgba(3, 3, 3, 0.274) ;
+}
+
+@media (max-width: 450px) {
+  body {
+    font-size: 1.4rem;
+  }
+  .form-button {
+    height: 3.2rem;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

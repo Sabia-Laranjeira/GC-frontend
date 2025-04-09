@@ -1,10 +1,69 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* form style*/
+
+#report-form {
+  max-width: fit-content;
 }
 
+.form-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.8rem;
 
-html {
-  font-size: 62.5%;
+  padding: 0.8rem 0.5rem;
+  margin-bottom: 0.8rem;
+  width: 100%;
+
+  border: 1px solid black;
+  border-radius: 3px;
+
+  position: relative;
+}
+
+.form-field {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-field label {
+  padding: 0rem 0.8rem;
+}
+
+.form-field input {
+  all:unset;
+  font-size: 1.6rem;
+  color: black;
+
+  height: 2.2rem;
+  width: 13.2rem;
+  padding: 0rem 0.3rem;
+
+  border-radius: 5px;
+  border: 1px solid black;
+  
+  box-shadow: ;
+}
+
+@media (max-width: 450px ) {
+  .form-field input {
+    height: 3.2rem;
+    
+  }
+}
+
+.form-button {
+  width: 80% !important;
+  text-align: center;
+}
+
+/* ReportViewer */
+
+.buttons-area {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media (max-width: 450px) {
+  .json-to-table {
+    width: 80dvh;   
+  }
 }
