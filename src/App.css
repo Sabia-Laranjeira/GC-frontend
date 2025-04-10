@@ -61,9 +61,3 @@
   display: flex;
   justify-content: space-around;
 }
-
-@media (max-width: 450px) {
-  .json-to-table {
-    width: 80dvh;   
-  }
-}

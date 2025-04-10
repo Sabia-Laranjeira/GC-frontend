@@ -39,16 +39,6 @@ section {
   row-gap: 0.8rem;
 }
 
-.table-wraper {
-  max-width: 80dvw;
-  border-radius: 0.5rem;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-
-  overflow: auto;
-}
-
 table {
   text-align: center;
   border-collapse: collapse;
@@ -57,11 +47,20 @@ table {
   font-size: 1.2rem;
 }
 
-th {
+td {
+  background-color: inherit;
+  font-weight: inherit;
+  color: inherit;
+
+  cursor: pointer;
+}
+
+th,td {
   padding: 0.2rem 0.8rem;
 }
 
 tr {
+  background-color: inherit;
   border-bottom: 1px solid black;
 }
 

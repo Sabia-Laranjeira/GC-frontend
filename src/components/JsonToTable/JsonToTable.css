@@ -1,0 +1,16 @@
+.table-wraper {
+  max-width: 90dvw;
+  border-radius: 0.5rem;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+
+  overflow: auto;
+}
+
+.selected-row {
+  background-color: rgb(var(--lightest-terciary)) !important;
+  font-weight: bold;
+  color: rgb(var(--secondary-color)) !important;
+}
+
