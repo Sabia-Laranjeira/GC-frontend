@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef,useContext } from "react";
 import { useState } from "react";
+
+import { SelectRow } from "../../pages/Home.jsx";
 
 export default function JsonToTable({ json }) {
   if(!json) {
     console.error(" 'json' prop in JsonToTable component is empty");
     return
   }
-  const [selectedRow, selectRow] = useState(null);
-
+  const selectRow = useContext(SelectRow);
 
   const rowsRef = [];
   for(let i = 0; i < json.length; i++) {

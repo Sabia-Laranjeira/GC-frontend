@@ -1,7 +1,12 @@
+import { useState, createContext } from "react";
+
 import PurchasesRecorder from "../components/PurchasesRecorder/PurchasesRecorder.jsx"
 import PriceSetting from "../components/PriceSetting/PriceSetting.jsx"
 import ReportViewer from "../components/ReportViewer/ReportViewer.jsx"
 import JsonToTable from "../components/JsonToTable/JsonToTable.jsx"
+
+export const SelectedRow = createContext();
+export const SelectRow = createContext();
 
 export default function Home() {
   const report = [{
@@ -27,16 +32,22 @@ export default function Home() {
     "Markup": 0.58,
     "Subtotal": 6760}
     ];
-  return <>
-  <section>
-    <form id="report-form">
-      <PurchasesRecorder/>
-      <PriceSetting/>
-      <input className="form-button" type="submit" value={"Registrar"}/>
-    </form>
-  </section>
-  <section>
-    <ReportViewer/>
-  </section>
-  </>
+  const [selectedRow, selectRow] = useState();
+
+  return (<>
+  <SelectedRow.Provider value={selectedRow}>
+    <section>
+      <form id="report-form">
+        <PurchasesRecorder/>
+        <PriceSetting/>
+        <input className="form-button" type="submit" value={"Registrar"}/>
+      </form>
+    </section>
+  </SelectedRow.Provider>
+  <SelectRow.Provider value={selectRow}>
+    <section>
+      <ReportViewer/>
+    </section>
+  </SelectRow.Provider>
+  </>)
 }
