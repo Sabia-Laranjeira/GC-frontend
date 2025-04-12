@@ -33,14 +33,14 @@ export default function Home() {
     "Subtotal": 6760}
     ];
   const [selectedRow, selectRow] = useState();
-
+  
   return (<>
   <SelectedRow.Provider value={selectedRow}>
     <section>
       <form id="report-form">
         <PurchasesRecorder/>
         <PriceSetting/>
-        <input className="form-button" type="submit" value={"Registrar"}/>
+        <input className="form-button" type="submit" value={selectedRow? "Atualizar":"Registrar"}/>
       </form>
     </section>
   </SelectedRow.Provider>

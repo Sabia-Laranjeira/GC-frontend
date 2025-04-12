@@ -1,35 +1,66 @@
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import GenerateFormField from "../../utils/GenerateFormFields.jsx"
-import { elementsAttributes, elementsLabels } from "./purchaseHTMLData.js";
 
 import { SelectedRow } from "../../pages/Home.jsx";
 
 export default function PurchasesRecorder() {
-  const formFields = [];
-  const selectedRow = useContext(SelectedRow);
-  let fieldsValue = null
-  if(selectedRow) {
-    fieldsValue = Array(
-      selectedRow["Produto"],
-      selectedRow["Volumes"],
-      selectedRow["Valor por Volume"],
-      selectedRow["Unidades por Volume"]
-    );
-
-    elementsAttributes.slice(1).forEach((e,i) => {
-      e["defaultValue"] = fieldsValue[i];
-    })
-  }
-
-
-  for(let i in elementsAttributes) {
-    formFields.push(<GenerateFormField key={i} label={elementsLabels[i]} inputAttributes={elementsAttributes[i]}/>)
-  }
-  
   return (
     <div className="form-section">
       <h2>Entradas de Compras</h2>
-      {formFields}
+      <DateField/>
+      <ProductSearchField/>
+      <VolumesField/>
+      <ValuePerVolumeField/>
+      <UnitysPerVolumeField/>
     </div>
   );
+}
+
+function DateField() {
+  const [date,setDate] = useState(new Date().toLocaleDateString("en-CA"));
+  
+  function changeDate(e) {
+    setDate(e.target.value)
+  }
+  return(
+  <div className="form-field">
+    <label htmlFor="report-date">Data</label>
+    <input type="date" id="report-date" name="date" value={date} onChange={changeDate} required />
+  </div>)
+}
+
+function ProductSearchField() {
+  return(
+    <div className="form-field">
+      <label htmlFor="product-name">Produto</label>
+      <input type="text" id="product-name" name="productName" placeholder="Melancia..." required/>
+    </div>
+  )
+}
+
+function VolumesField() {
+  return(
+    <div className="form-field">
+      <label htmlFor="volumes">Volumes</label>
+      <input type="number" id="volumes" name="volumes" min={0} step={0.01} required/>
+    </div>
+  )
+}
+
+function ValuePerVolumeField() {
+  return(
+    <div className="form-field">
+      <label htmlFor="value-per-volume">Valor por Volume</label>
+      <input type="number" id="value-per-volume" name="valuePerVolume" min={0} step={0.01} required />
+    </div>
+  )
+}
+
+function UnitysPerVolumeField() {
+  return(
+    <div className="form-field">
+      <label htmlFor="unitys-per-volume">Unidades por Volume</label>
+      <input type="number" id="unitys-per-volume" name="unitysPerVolume" min={0} step={0.01} required />
+    </div>
+  )
 }

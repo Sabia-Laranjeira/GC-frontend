@@ -43,6 +43,10 @@
   box-shadow: ;
 }
 
+.form-buttons-area {
+  width: 100%;
+}
+
 @media (max-width: 450px ) {
   .form-field input {
     height: 3.2rem;
