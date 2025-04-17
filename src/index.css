@@ -87,6 +87,15 @@ button:active ,.form-button:active {
   box-shadow: inset 3px 4px 10px rgba(3, 3, 3, 0.274) ;
 }
 
+.neutral-button {
+  all: unset;
+  background-color: rgb(var(--primary-color));
+  color: rgb(var(--secondary-color));
+  border-radius: 5px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
 @media (max-width: 450px) {
   body {
     font-size: 1.4rem;

@@ -1,15 +1,15 @@
 import React, { useRef,useContext } from "react";
 import { useState } from "react";
 
-import { SelectRow } from "../../pages/Home.jsx";
+import { RowSelector } from "../../pages/Home.jsx";
 
 export default function JsonToTable({ json }) {
   if(!json) {
     console.error(" 'json' prop in JsonToTable component is empty");
     return
   }
-  const selectRow = useContext(SelectRow);
-
+  const { selectedRow , selectRow } = useContext(RowSelector);
+  const [ selectedRowIndex, setSelectedRowIndex ] = useState();  
   const rowsRef = [];
   for(let i = 0; i < json.length; i++) {
     rowsRef[i] = useRef("");
@@ -30,13 +30,17 @@ export default function JsonToTable({ json }) {
         rowsRef.forEach((r) => {
           r.current.className = "";
         })
-        selectRow(json[i])
+        selectRow(json[i]);
+        setSelectedRowIndex(i);
         rowsRef[i].current.className = "selected-row";
       }}>{
         headers.map((h,index) => <td key={index}>{obj[h]}</td>)
         }</tr>);
 
-
+  //When no row is selected, the highlight is removed.
+  if(!selectedRow && rowsRef[selectedRowIndex] !== undefined) {
+    rowsRef[selectedRowIndex].current.className = ""
+  }
   return(
   <table>
     <thead>

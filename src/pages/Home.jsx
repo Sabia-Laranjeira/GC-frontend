@@ -5,8 +5,7 @@ import PriceSetting from "../components/PriceSetting/PriceSetting.jsx"
 import ReportViewer from "../components/ReportViewer/ReportViewer.jsx"
 import JsonToTable from "../components/JsonToTable/JsonToTable.jsx"
 
-export const SelectedRow = createContext();
-export const SelectRow = createContext();
+export const RowSelector = createContext();
 
 export default function Home() {
   const report = [{
@@ -32,22 +31,27 @@ export default function Home() {
     "Markup": 0.58,
     "Subtotal": 6760}
     ];
-  const [selectedRow, selectRow] = useState();
-  
+  const [selectedRow, selectRow] = useState("");
+
   return (<>
-  <SelectedRow.Provider value={selectedRow}>
-    <section>
-      <form id="report-form">
-        <PurchasesRecorder/>
-        <PriceSetting/>
-        <input className="form-button" type="submit" value={selectedRow? "Atualizar":"Registrar"}/>
-      </form>
-    </section>
-  </SelectedRow.Provider>
-  <SelectRow.Provider value={selectRow}>
-    <section>
-      <ReportViewer/>
-    </section>
-  </SelectRow.Provider>
+    <RowSelector.Provider value={{selectedRow,selectRow}}>
+      <section>
+        <form id="report-form">
+          <PurchasesRecorder/>
+          <PriceSetting/>
+          <div className="form-buttons-area">
+            <input className="form-button" type="submit" value={selectedRow? "Atualizar":"Registrar"}/>
+            <input type="button" className="neutral-button" value="Voltar" onClick={
+              () => {
+                selectRow(false)
+              }
+            } />
+          </div>
+        </form>
+      </section>
+      <section>
+        <ReportViewer/>
+      </section>
+    </RowSelector.Provider>
   </>)
 }
