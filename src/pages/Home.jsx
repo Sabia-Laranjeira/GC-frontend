@@ -33,14 +33,30 @@ export default function Home() {
     "Markup": 0.58,
     "Subtotal": 6760}
     ];
-  let [unitysPerVolume,setUnitysPerVolume] = useState("");
-  let [valuePerVolume,setValuePerVolume] = useState("");
+
+  let [unitysPerVolume,setUnitysPerVolume] = useState(0);
+  let [unityPrice,setUnityPrice] = useState(0);
+  let [valuePerVolume,setValuePerVolume] = useState(0);
+  let [sellingPrice,setSellingPrice] = useState(0);
+  let [markup,setMarkup] = useState(0);
+
   const [selectedRow, selectRow] = useState("");
 
   return (<>
     <RowSelector.Provider value={{selectedRow,selectRow}}>
       <section>
-        <FormInputs.Provider value={{unitysPerVolume,setUnitysPerVolume,valuePerVolume,setValuePerVolume}} >
+        <FormInputs.Provider value={{
+          unitysPerVolume,
+          setUnitysPerVolume,
+          valuePerVolume,
+          setValuePerVolume,
+          sellingPrice,
+          setSellingPrice,
+          markup,
+          setMarkup,
+          unityPrice,
+          setUnityPrice    
+          }} >
           <form id="report-form">
             <PurchasesRecorder/>
             <PriceSetting/>

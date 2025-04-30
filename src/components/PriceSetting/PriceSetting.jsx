@@ -18,6 +18,7 @@ export default function PriceSetting() {
 
 function MarkupField() {
   let [inputValue, setInputValue] = useState("");
+  const { sellingPrice,unityPrice, setMarkup } = useContext(FormInputs);
 
   let { selectedRow } = useContext(RowSelector);
   let keySelected = selectedRow["Markup"] || "";
@@ -30,13 +31,19 @@ function MarkupField() {
     if( keySelected && !inputValue|| keySelected !== inputValue ) {
       setInputValue(keySelected);
     } 
-  },[setInputValue,keySelected])
+    if(sellingPrice && unityPrice) {
+      const markup = ((sellingPrice/unityPrice - 1) * 100).toFixed(2) ;
+      setInputValue(markup);
+    }
+  },[setInputValue,keySelected,sellingPrice,unityPrice])
 
   return(
     <div className="form-field">
       <label htmlFor="markup">Markup</label>
       <input type="number" id="markup" name="markup" onChange={(e) => {
+        const markup = (Number(e.target.value)/100).toFixed(2);
         setInputValue(e.target.value);
+        setMarkup(markup);
       }} value={inputValue} min={0} step={0.01}/>
     </div>
   )
@@ -44,6 +51,7 @@ function MarkupField() {
 
 function SellingPriceField() {
   let [inputValue, setInputValue] = useState("");
+  const { setSellingPrice, markup, unityPrice } = useContext(FormInputs);
 
   let { selectedRow } = useContext(RowSelector);
   let keySelected = selectedRow["Preco de Venda"] || "";
@@ -51,14 +59,20 @@ function SellingPriceField() {
   useEffect(() => {
     if( keySelected && !inputValue|| keySelected !== inputValue ) {
       setInputValue(keySelected);
-    } 
-  },[setInputValue,keySelected])
+    }
+    if( markup && unityPrice ) {
+      console.log(markup);
+      const sellingPrice = Number(unityPrice) * Number(markup) + Number(unityPrice);
+      setInputValue(sellingPrice);
+    }
+  },[setInputValue, setSellingPrice,keySelected, markup, unityPrice])
 
   return(
     <div className="form-field">
       <label htmlFor="selling-price">Preço Venda</label>
       <input type="number" id="selling-price" name="sellingPrice" onChange={(e) => {
         setInputValue(e.target.value);
+        setSellingPrice(e.target.value);
       }} value={inputValue} min={0} step={0.01}/>
     </div>
   )
@@ -66,7 +80,7 @@ function SellingPriceField() {
 
 function UnityPriceField() {
   let [inputValue, setInputValue] = useState("");
-  const { unitysPerVolume, valuePerVolume } = useContext(FormInputs);
+  const { unitysPerVolume, valuePerVolume, setUnityPrice } = useContext(FormInputs);
   
   let { selectedRow } = useContext(RowSelector);
   let keySelected = selectedRow["Preco de Venda"] || "";
@@ -78,6 +92,7 @@ function UnityPriceField() {
     if (unitysPerVolume && valuePerVolume) {
       const price = Number(valuePerVolume)/Number(unitysPerVolume).toFixed(2);
       setInputValue(price);
+      setUnityPrice(price);
     }
   },[setInputValue,keySelected,unitysPerVolume,valuePerVolume])
 
