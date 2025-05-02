@@ -18,24 +18,22 @@ export default function PriceSetting() {
 
 function MarkupField() {
   let [inputValue, setInputValue] = useState("");
-  const { sellingPrice,unityPrice, setMarkup } = useContext(FormInputs);
+  const { sellingPrice,unityPrice, setMarkup} = useContext(FormInputs);
 
   let { selectedRow } = useContext(RowSelector);
   let keySelected = selectedRow["Markup"] || "";
 
-  if(keySelected) {
-    keySelected = (Number(keySelected) * 100).toFixed(2) ;
+  let markup = "";
+  if(sellingPrice && unityPrice) {
+    markup = ((sellingPrice/unityPrice - 1) * 100).toFixed(2);
   }
-
   useEffect(() => {
-    if( keySelected && !inputValue|| keySelected !== inputValue ) {
+    setInputValue(markup);
+    if( keySelected && !inputValue || keySelected !== inputValue && keySelected !== "" ) {
+      keySelected = (Number(keySelected) * 100).toFixed(2);
       setInputValue(keySelected);
-    } 
-    if(sellingPrice && unityPrice) {
-      const markup = ((sellingPrice/unityPrice - 1) * 100).toFixed(2) ;
-      setInputValue(markup);
     }
-  },[setInputValue,keySelected,sellingPrice,unityPrice])
+  },[setInputValue,keySelected,markup])
 
   return(
     <div className="form-field">
@@ -56,16 +54,17 @@ function SellingPriceField() {
   let { selectedRow } = useContext(RowSelector);
   let keySelected = selectedRow["Preco de Venda"] || "";
 
+  let sellingPrice = "";
+  if(markup && unityPrice) {
+    sellingPrice = (unityPrice * markup + unityPrice).toFixed(2);
+  } 
+
   useEffect(() => {
-    if( keySelected && !inputValue|| keySelected !== inputValue ) {
+    setInputValue(sellingPrice);
+    if( keySelected && !inputValue || keySelected !== inputValue && keySelected !== "" ) {
       setInputValue(keySelected);
-    }
-    if( markup && unityPrice ) {
-      console.log(markup);
-      const sellingPrice = Number(unityPrice) * Number(markup) + Number(unityPrice);
-      setInputValue(sellingPrice);
-    }
-  },[setInputValue, setSellingPrice,keySelected, markup, unityPrice])
+    } 
+  },[setInputValue,keySelected, sellingPrice])
 
   return(
     <div className="form-field">
@@ -86,7 +85,7 @@ function UnityPriceField() {
   let keySelected = selectedRow["Preco de Venda"] || "";
 
   useEffect(() => {
-    if( keySelected && !inputValue || keySelected !== inputValue ) {
+    if( keySelected && !inputValue || keySelected !== inputValue && keySelected !== "" ) {
       setInputValue(keySelected);
     } 
     if (unitysPerVolume && valuePerVolume) {
