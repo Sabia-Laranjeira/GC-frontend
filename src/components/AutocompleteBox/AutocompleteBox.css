@@ -1,0 +1,23 @@
+.suggestion-box {
+  position: absolute;
+  padding: 2px;
+  color: rgb(var(--primary-color));;
+  background-color: white;
+
+  width: 100%;
+  border: 1px solid rgb(var(--primary-color));
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.suggestion-box-item:hover {
+  background-color: rgb(var(--lightest-terciary));
+}
+
+.selected-suggestion {
+  background-color: rgb(var(--lightest-terciary));
+}
+
+.suggestion-box:focus {
+  border-color: rgb(var(--terciary-color));
+}

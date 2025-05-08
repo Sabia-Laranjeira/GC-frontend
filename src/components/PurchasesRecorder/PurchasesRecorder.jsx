@@ -1,5 +1,6 @@
 import { useContext,useEffect,useImperativeHandle,useRef,useState } from "react";
 import { RowSelector,FormInputs } from "../../pages/Home.jsx";
+import AutocompleteBox from "../AutocompleteBox/AutocompleteBox.jsx";
 
 export default function PurchasesRecorder() {
   return (
@@ -29,7 +30,6 @@ function DateField() {
 
 function ProductSearchField() {
   let [inputValue, setInputValue] = useState("");
-
   let { selectedRow } = useContext(RowSelector);
   let keySelected = selectedRow["Produto"] || "";
   
@@ -45,9 +45,17 @@ function ProductSearchField() {
   return(
     <div className="form-field">
       <label htmlFor="product-name">Produto</label>
-      <input type="text" id="product-name" name="productName" placeholder="Melancia..." onChange={(e) => {
-        setInputValue(e.target.value);
-      }} value={inputValue} required/>
+      <div className="search-area">
+        <input type="text" id="product-name" name="productName" placeholder="Melancia..." onChange={(e) => {
+          setInputValue(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          
+        }}
+        value={inputValue} autoComplete="off" required/>
+
+        <AutocompleteBox inputValue={inputValue} setValue={setInputValue} itemToSearch={inputValue} items={["ABACATE","MELANCIA","TOMATE","ABACAXI","MAMAO"]}/>
+      </div>
     </div>
   )
 }
