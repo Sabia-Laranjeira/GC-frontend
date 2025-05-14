@@ -2,6 +2,8 @@ import { useContext,useEffect,useImperativeHandle,useRef,useState } from "react"
 import { RowSelector,FormInputs } from "../../pages/Home.jsx";
 import AutocompleteBox from "../AutocompleteBox/AutocompleteBox.jsx";
 
+import { nextElement } from "../../utils/nextElement.js";
+
 export default function PurchasesRecorder() {
   return (
     <div className="form-section">
@@ -42,18 +44,23 @@ function ProductSearchField() {
     }
   },[selectedRow,setInputValue])
 
+  const searchAreaDiv = useRef(null);
   return(
     <div className="form-field">
       <label htmlFor="product-name">Produto</label>
-      <div className="search-area">
+      <div ref={searchAreaDiv} className="search-area">
         <input type="text" id="product-name" name="productName" placeholder="Melancia..." onChange={(e) => {
-          setInputValue(e.target.value);
+          const thisValue = e.target.value.toUpperCase();
+          e.target.value = thisValue;
+          setInputValue(thisValue);
         }}
         onKeyDown={(e) => {
-          
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            nextElement(e.target);
+          }
         }}
         value={inputValue} autoComplete="off" required/>
-
         <AutocompleteBox inputValue={inputValue} setValue={setInputValue} itemToSearch={inputValue} items={["ABACATE","MELANCIA","TOMATE","ABACAXI","MAMAO"]}/>
       </div>
     </div>

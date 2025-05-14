@@ -18,6 +18,6 @@
   background-color: rgb(var(--lightest-terciary));
 }
 
-.suggestion-box:focus {
-  border-color: rgb(var(--terciary-color));
+.suggestion-box:focus, .suggestion-box:focus-visible {
+  border: solid 1px rgb(var(--terciary-color));
 }
