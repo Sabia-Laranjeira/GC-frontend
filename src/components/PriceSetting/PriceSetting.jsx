@@ -1,6 +1,6 @@
 import { useContext,useState,useEffect } from "react";
 import { RowSelector,FormInputs } from "../../pages/Home.jsx";
-
+//[Note] Maybe is better to multiply the prices values by 1000 and then divided...
 export default function PriceSetting() {
   const {unitysPerVolume,valuePerVolume} = useContext(FormInputs);
   

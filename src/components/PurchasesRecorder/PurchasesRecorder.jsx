@@ -1,8 +1,11 @@
 import { useContext,useEffect,useImperativeHandle,useRef,useState } from "react";
+
+import { ApiData } from "../../App.jsx";
 import { RowSelector,FormInputs } from "../../pages/Home.jsx";
 import AutocompleteBox from "../AutocompleteBox/AutocompleteBox.jsx";
 
 import { nextElement } from "../../utils/nextElement.js";
+import isNumber from "../../utils/isNumber.js";
 
 export default function PurchasesRecorder() {
   return (
@@ -32,17 +35,33 @@ function DateField() {
 
 function ProductSearchField() {
   let [inputValue, setInputValue] = useState("");
+  let item = null; 
   let { selectedRow } = useContext(RowSelector);
+  const { products ,productsNames } = useContext(ApiData);
+
   let keySelected = selectedRow["Produto"] || "";
   
   if( keySelected && !inputValue || keySelected !== inputValue && selectedRow) {
     setInputValue(keySelected);
   } 
+
+  if(isNumber(inputValue)) {
+    const product = Array.from(products).find(p => p["Codigo"] === Number(inputValue));
+    if(product === undefined) {
+      alert("Produto não encontrado!")
+      console.error("[NOT FOUND] product not found.");
+    } else {
+      item = product["Nome"];
+    }
+  } else if (inputValue && !isNumber(inputValue)) {
+    item = inputValue;
+  }
+
   useEffect(() => {
     if(!selectedRow) {
       setInputValue("");
     }
-  },[selectedRow,setInputValue])
+  },[selectedRow,setInputValue,])
 
   const searchAreaDiv = useRef(null);
   return(
@@ -61,7 +80,7 @@ function ProductSearchField() {
           }
         }}
         value={inputValue} autoComplete="off" required/>
-        <AutocompleteBox inputValue={inputValue} setValue={setInputValue} itemToSearch={inputValue} items={["ABACATE","MELANCIA","TOMATE","ABACAXI","MAMAO"]}/>
+        <AutocompleteBox inputValue={inputValue} setValue={setInputValue} itemToSearch={item} items={productsNames}/>
       </div>
     </div>
   )

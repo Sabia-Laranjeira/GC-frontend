@@ -1,47 +1,23 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useContext } from "react";
 
+import { ApiData } from "../App.jsx";
 import PurchasesRecorder from "../components/PurchasesRecorder/PurchasesRecorder.jsx"
 import PriceSetting from "../components/PriceSetting/PriceSetting.jsx"
 import ReportViewer from "../components/ReportViewer/ReportViewer.jsx"
-import JsonToTable from "../components/JsonToTable/JsonToTable.jsx"
 
 export const RowSelector = createContext();
 export const FormInputs = createContext();
 
-
 export default function Home() {
-  const report = [{
-    "Codigo": 21,
-    "Produto": "LIMAO TAITI",
-    "Volumes": 26,
-    "Valor por Volume": 260,
-    "Unidades por Volume": 54,
-    "Total de Unidades": 1404,
-    "Valor da Unidade": 4.81,
-    "Preco de Venda": 7.61,
-    "Markup": 0.58,
-    "Subtotal": 6760
-  },
-    {"Codigo": 1,
-    "Produto": "LARANJA PERA",
-    "Volumes": 26,
-    "Valor por Volume": 260,
-    "Unidades por Volume": 54,
-    "Total de Unidades": 1404,
-    "Valor da Unidade": 4.81,
-    "Preco de Venda": 7.61,
-    "Markup": 0.58,
-    "Subtotal": 6760}
-    ];
-
+  const { products } = useContext(ApiData);
   let [unitysPerVolume,setUnitysPerVolume] = useState(0);
   let [unityPrice,setUnityPrice] = useState(0);
   let [valuePerVolume,setValuePerVolume] = useState(0);
   let [sellingPrice,setSellingPrice] = useState(0);
   let [markup,setMarkup] = useState(0);
-
+  
   const [selectedRow, selectRow] = useState("");
-
+  
   return (<>
     <RowSelector.Provider value={{selectedRow,selectRow}}>
       <section>
@@ -56,8 +32,12 @@ export default function Home() {
           setMarkup,
           unityPrice,
           setUnityPrice    
-          }} >
-          <form id="report-form">
+        }} >
+          <form id="report-form" action={(formData) => {
+            const productCode = Array.from(products).find(p => p["Nome"] === formData.get("productName"))["Codigo"];
+            formData.set("productCode",productCode);
+            sendPurchaseRecord(formData)
+          }}>
             <PurchasesRecorder/>
             <PriceSetting/>
             <div className="form-buttons-area">
@@ -76,4 +56,16 @@ export default function Home() {
       </section>
     </RowSelector.Provider>
   </>)
+}
+
+async function sendPurchaseRecord(formData) {
+  const formDataJson = JSON.stringify(Object.fromEntries(formData))
+  
+  const res = await fetch(`${import.meta.env.VITE_TEST_APIURL}/send-purchase-report`,{
+    method: "POST",
+    headers: {
+      "content-type":"application/json"
+    },
+    body: formDataJson
+  });
 }

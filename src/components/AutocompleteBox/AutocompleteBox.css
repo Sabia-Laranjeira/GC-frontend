@@ -4,10 +4,17 @@
   color: rgb(var(--primary-color));;
   background-color: white;
 
-  width: 100%;
+  width: 148%;
+  max-height: 4.8rem;
+  overflow: auto;
   border: 1px solid rgb(var(--primary-color));
   border-radius: 2px;
   cursor: pointer;
+  z-index: 10;
+}
+
+.suggestion-box-item {
+  background-color: white;
 }
 
 .suggestion-box-item:hover {

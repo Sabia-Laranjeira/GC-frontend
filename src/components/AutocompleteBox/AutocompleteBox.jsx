@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 
 export default function AutocompleteBox({inputValue,setValue,itemToSearch,items}) {
-    if(items.includes(inputValue)) {
+    if(!itemToSearch || !items) {
       return
     }
-    if(!itemToSearch || !items) {
+    if(items.includes(inputValue)) {
       return
     }
     const filteredItems =  items.filter((i) => i.startsWith(itemToSearch));
@@ -20,21 +20,24 @@ export default function AutocompleteBox({inputValue,setValue,itemToSearch,items}
     });
     const autocompleteBox = useRef(null);
     const [currentItemIndex,setCurrentItemIndex] = useState(0);
+
     return(
       <div ref={autocompleteBox} className="suggestion-box" onClick={e => {
           setValue(e.target.innerText);
         }}
         onKeyDown={e => {
-          //This code needs some improvements.
+          //This code needs some improvements. But I don't know yet what to change...
           for (const [key,element] of Object.entries(e.target.children)) {
             element.style.backgroundColor = "white";
           }
-          
           if(e.key === "ArrowUp") {
             e.preventDefault();
             let index = currentItemIndex - 1;
             if(index < 0) {
               index = 0
+            }
+            if(e.target.scrollTop !== 0) {
+              e.target.scrollTop -=  e.target.children[index].offsetHeight; 
             }
             e.target.children[index].style.backgroundColor = "rgb(var(--lightest-terciary))";
             setCurrentItemIndex(index);
@@ -44,7 +47,8 @@ export default function AutocompleteBox({inputValue,setValue,itemToSearch,items}
             if(index > e.target.children.length - 1) {
               index = e.target.children.length - 1;
             }
-            e.target.children[index].style.backgroundColor = "rgb(var(--lightest-terciary))";        
+            e.target.children[index].style.backgroundColor = "rgb(var(--lightest-terciary))";    
+            e.target.scrollTop +=  e.target.children[index].offsetHeight - 0.5; 
             setCurrentItemIndex(index);
           } else if(e.key === "Enter") {
             setValue(e.target.children[currentItemIndex].innerText);
