@@ -21,15 +21,17 @@ export default function PurchasesRecorder() {
 }
 
 function DateField() {
-  const [date,setDate] = useState(new Date().toLocaleDateString("en-CA"));
-  
+  const { date,setDate } = useContext(FormInputs)
+  const [inputValue,setInputValue] = useState(new Date().toLocaleDateString("en-CA"));
+
   function changeDate(e) {
-    setDate(e.target.value)
+    setInputValue(e.target.value)
+    setDate(inputValue);
   }
   return(
   <div className="form-field">
     <label htmlFor="report-date">Data</label>
-    <input type="date" id="report-date" name="date" value={date} onChange={changeDate} required />
+    <input type="date" id="report-date" name="date" value={inputValue} onChange={changeDate} required />
   </div>)
 }
 
@@ -48,7 +50,6 @@ function ProductSearchField() {
   if(isNumber(inputValue)) {
     const product = Array.from(products).find(p => p["Codigo"] === Number(inputValue));
     if(product === undefined) {
-      alert("Produto não encontrado!")
       console.error("[NOT FOUND] product not found.");
     } else {
       item = product["Nome"];
@@ -61,7 +62,7 @@ function ProductSearchField() {
     if(!selectedRow) {
       setInputValue("");
     }
-  },[selectedRow,setInputValue,])
+  },[selectedRow,setInputValue])
 
   const searchAreaDiv = useRef(null);
   return(

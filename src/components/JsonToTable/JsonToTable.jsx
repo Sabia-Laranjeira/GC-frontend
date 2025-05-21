@@ -1,23 +1,21 @@
-import React, { useRef,useContext } from "react";
+import React, { useRef,useContext, memo} from "react";
 import { useState } from "react";
 
 import { RowSelector } from "../../pages/Home.jsx";
 
-export default function JsonToTable({ json }) {
-  if(!json) {
-    console.error(" 'json' prop in JsonToTable component is empty");
-    return
-  }
+export default memo(function JsonToTable({ json }) {
   const { selectedRow , selectRow } = useContext(RowSelector);
   const [ selectedRowIndex, setSelectedRowIndex ] = useState();  
-  const rowsRef = [];
+  if(!json) {
+    return
+  }
+  /*const rowsRef = [];
   for(let i = 0; i < json.length; i++) {
     rowsRef[i] = useRef("");
-  }
+  }*/
 
   //get the object that contains more keys and make the <th> element.
   let headers = null;
-
   json.forEach((obj) => {
     let keys = Object.getOwnPropertyNames(obj);
     headers = keys;
@@ -26,21 +24,24 @@ export default function JsonToTable({ json }) {
     }
   })
 
-  const rows = json.map((obj,i) => <tr key={i} ref={rowsRef[i]} onClick={() => {
-        rowsRef.forEach((r) => {
-          r.current.className = "";
+  const rows = json.map((obj,i) => <tr key={i} onClick={(e) => {
+        const trList = Array.from(e.target.parentNode.parentNode.children);
+        trList.forEach((e) => {
+          e.className = "";
         })
+        e.target.parentNode.className = "selected-row";
+
         selectRow(json[i]);
         setSelectedRowIndex(i);
-        rowsRef[i].current.className = "selected-row";
       }}>{
         headers.map((h,index) => <td key={index}>{obj[h]}</td>)
         }</tr>);
 
+  
   //When no row is selected, the highlight is removed.
-  if(!selectedRow && rowsRef[selectedRowIndex] !== undefined) {
+  /*if(!selectedRow && rowsRef[selectedRowIndex] !== undefined) {
     rowsRef[selectedRowIndex].current.className = ""
-  }
+  }*/
   return(
   <table>
     <thead>
@@ -53,4 +54,4 @@ export default function JsonToTable({ json }) {
     </tbody>
   </table>
   )
-}
+})

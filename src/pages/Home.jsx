@@ -1,27 +1,40 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 
 import { ApiData } from "../App.jsx";
+import sendPurchaseRecord from "../api/sendPurchaseRecord.js";
+
 import PurchasesRecorder from "../components/PurchasesRecorder/PurchasesRecorder.jsx"
 import PriceSetting from "../components/PriceSetting/PriceSetting.jsx"
 import ReportViewer from "../components/ReportViewer/ReportViewer.jsx"
+import getReportFromDate from "../api/getReportFromDate.js";
+import overwritePurchaseRecord from "../api/overwritePurchaseRecord.js";
 
 export const RowSelector = createContext();
 export const FormInputs = createContext();
 
 export default function Home() {
-  const { products } = useContext(ApiData);
-  let [unitysPerVolume,setUnitysPerVolume] = useState(0);
-  let [unityPrice,setUnityPrice] = useState(0);
-  let [valuePerVolume,setValuePerVolume] = useState(0);
-  let [sellingPrice,setSellingPrice] = useState(0);
-  let [markup,setMarkup] = useState(0);
+  const { products, setReport,report } = useContext(ApiData);
+  
+  const [date, setDate] = useState("");
+  const [unitysPerVolume,setUnitysPerVolume] = useState(0);
+  const [unityPrice,setUnityPrice] = useState(0);
+  const [valuePerVolume,setValuePerVolume] = useState(0);
+  const [sellingPrice,setSellingPrice] = useState(0);
+  const [markup,setMarkup] = useState(0);
   
   const [selectedRow, selectRow] = useState("");
+
+  useEffect(() => {
+    if(!date) {
+      setDate(new Date().toLocaleDateString("en-CA"));
+    }
+  },[date,setDate])
   
   return (<>
     <RowSelector.Provider value={{selectedRow,selectRow}}>
-      <section>
         <FormInputs.Provider value={{
+          date,
+          setDate,
           unitysPerVolume,
           setUnitysPerVolume,
           valuePerVolume,
@@ -33,15 +46,31 @@ export default function Home() {
           unityPrice,
           setUnityPrice    
         }} >
-          <form id="report-form" action={(formData) => {
+      <section>
+          <form id="report-form" action={async (formData) => {
             const productCode = Array.from(products).find(p => p["Nome"] === formData.get("productName"))["Codigo"];
+            formData.set("markup",markup);
             formData.set("productCode",productCode);
-            sendPurchaseRecord(formData)
+            
+            if(selectedRow) {
+              console.log("Atualizar registro de compra!");
+              const { report } = await overwritePurchaseRecord(formData);
+              if(report) {
+                setReport(report["Relatorio"]);
+              }
+              
+            } else {
+              const {report} = (await sendPurchaseRecord(formData));
+              if(report){
+                setReport(report["Relatorio"]);
+              }
+            }
+
           }}>
             <PurchasesRecorder/>
             <PriceSetting/>
             <div className="form-buttons-area">
-              <input className="form-button" type="submit" value={selectedRow? "Atualizar":"Registrar"}/>
+              <input className="form-button" type="submit"  value={selectedRow? "Atualizar":"Registrar"}/>
               <input type="button" className="neutral-button" value="Voltar" onClick={
                 () => {
                   selectRow(false)
@@ -49,23 +78,11 @@ export default function Home() {
               } />
             </div>
           </form>
-        </FormInputs.Provider>
       </section>
       <section>
         <ReportViewer/>
       </section>
+        </FormInputs.Provider>
     </RowSelector.Provider>
   </>)
-}
-
-async function sendPurchaseRecord(formData) {
-  const formDataJson = JSON.stringify(Object.fromEntries(formData))
-  
-  const res = await fetch(`${import.meta.env.VITE_TEST_APIURL}/send-purchase-report`,{
-    method: "POST",
-    headers: {
-      "content-type":"application/json"
-    },
-    body: formDataJson
-  });
 }
