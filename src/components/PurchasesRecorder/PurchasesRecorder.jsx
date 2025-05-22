@@ -26,7 +26,7 @@ function DateField() {
 
   function changeDate(e) {
     setInputValue(e.target.value)
-    setDate(inputValue);
+    setDate(e.target.value);
   }
   return(
   <div className="form-field">

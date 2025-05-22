@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@testing-library/jest-dom": "^6.6.3",
+    "file-saver": "^2.0.5",
     "jest": "^30.0.0-alpha.7",
     "jest-dom": "^4.0.0",
     "jest-environment-jsdom": "^29.7.0",

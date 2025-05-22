@@ -3,5 +3,5 @@ export default async function getReportFromDate(date) {
   if(req.response === undefined) {
     return
   }
-  return req.response["Relatorio"];
+  return req.response;
 }

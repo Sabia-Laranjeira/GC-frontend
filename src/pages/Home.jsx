@@ -23,12 +23,22 @@ export default function Home() {
   const [markup,setMarkup] = useState(0);
   
   const [selectedRow, selectRow] = useState("");
-
   useEffect(() => {
     if(!date) {
       setDate(new Date().toLocaleDateString("en-CA"));
+    } else if (date) {
+      (async () => {
+        const reportList = await getReportFromDate(date)
+        console.log(reportList["Relatorio"])
+        if(reportList) {
+          setReport(reportList["Relatorio"]);
+        }
+      })()
     }
-  },[date,setDate])
+    
+    
+    
+  },[date,setDate,getReportFromDate,setReport])
   
   return (<>
     <RowSelector.Provider value={{selectedRow,selectRow}}>
@@ -53,7 +63,6 @@ export default function Home() {
             formData.set("productCode",productCode);
             
             if(selectedRow) {
-              console.log("Atualizar registro de compra!");
               const { report } = await overwritePurchaseRecord(formData);
               if(report) {
                 setReport(report["Relatorio"]);
