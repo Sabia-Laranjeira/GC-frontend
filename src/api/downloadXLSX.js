@@ -1,7 +1,7 @@
 import { saveAs } from "file-saver";
 
 export default async function downloadReportXLSX(date) {
-  const res = await fetch(`${import.meta.env.VITE_TEST_APIURL}/download-report-xlsx?date=${date}`);
+  const res = await fetch(`${import.meta.env.VITE_APIURL}/download-report-xlsx?date=${date}`);
   if(!res.ok) {
 
   }
