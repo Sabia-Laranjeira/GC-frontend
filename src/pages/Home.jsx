@@ -29,9 +29,8 @@ export default function Home() {
     } else if (date) {
       (async () => {
         const reportList = await getReportFromDate(date)
-        console.log(reportList["Relatorio"])
         if(reportList) {
-          setReport(reportList["Relatorio"]);
+          setReport(await reportList["Relatorio"]);
         }
       })()
     }
