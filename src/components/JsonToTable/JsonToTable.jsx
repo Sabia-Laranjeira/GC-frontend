@@ -6,13 +6,10 @@ import { RowSelector } from "../../pages/Home.jsx";
 export default memo(function JsonToTable({ json }) {
   const { selectedRow , selectRow } = useContext(RowSelector);
   const [ selectedRowIndex, setSelectedRowIndex ] = useState();  
+  const table = useRef(null);
   if(!json) {
     return
   }
-  /*const rowsRef = [];
-  for(let i = 0; i < json.length; i++) {
-    rowsRef[i] = useRef("");
-  }*/
 
   //get the object that contains more keys and make the <th> element.
   let headers = null;
@@ -39,11 +36,15 @@ export default memo(function JsonToTable({ json }) {
 
   
   //When no row is selected, the highlight is removed.
-  /*if(!selectedRow && rowsRef[selectedRowIndex] !== undefined) {
-    rowsRef[selectedRowIndex].current.className = ""
-  }*/
+  if(!selectedRow && table.current) {
+    const tbody = table.current.children[1];
+    const children = Array.from(tbody.children);
+    children.forEach((c) => {
+      c.className = "";
+    })
+  }
   return(
-  <table>
+  <table ref={table}>
     <thead>
       <tr>
         {headers.map((h,index) => <th key={index}>{h}</th>)}

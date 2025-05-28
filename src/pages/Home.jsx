@@ -34,9 +34,6 @@ export default function Home() {
         }
       })()
     }
-    
-    
-    
   },[date,setDate,getReportFromDate,setReport])
   
   return (<>
@@ -62,6 +59,9 @@ export default function Home() {
             formData.set("productCode",productCode);
             
             if(selectedRow) {
+              for (const key of formData.keys()) {
+                console.log(key);
+              }
               const { report } = await overwritePurchaseRecord(formData);
               if(report) {
                 setReport(report["Relatorio"]);
