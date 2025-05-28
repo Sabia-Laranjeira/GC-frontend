@@ -34,7 +34,6 @@ export default memo(function JsonToTable({ json }) {
         headers.map((h,index) => <td key={index}>{obj[h]}</td>)
         }</tr>);
 
-  
   //When no row is selected, the highlight is removed.
   if(!selectedRow && table.current) {
     const tbody = table.current.children[1];

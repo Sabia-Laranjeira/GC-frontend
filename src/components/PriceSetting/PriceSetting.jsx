@@ -56,7 +56,7 @@ function SellingPriceField() {
 
   let sellingPrice = "";
   if(markup && unityPrice) {
-    sellingPrice = (unityPrice * markup + unityPrice).toFixed(2);
+    sellingPrice = (Number(unityPrice) * Number(markup) + Number(unityPrice)).toFixed(2);
   } 
 
   useEffect(() => {
@@ -89,7 +89,10 @@ function UnityPriceField() {
       setInputValue(keySelected);
     } 
     if (unitysPerVolume && valuePerVolume) {
-      const price = Number(valuePerVolume)/Number(unitysPerVolume).toFixed(2);
+      let price = Number(valuePerVolume)/Number(unitysPerVolume);
+      if(price) {
+        price = price.toFixed(2);
+      }
       setInputValue(price);
       setUnityPrice(price);
     }
